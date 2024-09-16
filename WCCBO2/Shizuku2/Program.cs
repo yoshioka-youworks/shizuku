@@ -1,4 +1,4 @@
-﻿using BaCSharp;
+using BaCSharp;
 
 using Popolo.ThermalLoad;
 using Popolo.HVAC.MultiplePackagedHeatPump;
@@ -86,6 +86,9 @@ namespace Shizuku2
 
     /// <summary>テナントリスト</summary>
     private static TenantList tenants;
+
+    /// <summary>テナント</summary>
+    private static Tenant tenant;
 
     /// <summary>計算が遅れているか否か</summary>
     private static bool isDelayed = false;
@@ -554,7 +557,8 @@ namespace Shizuku2
                 "," + building.MultiRoom[i].Zones[j].Name + " absolute humidity [g/kg]" +
                 "," + building.MultiRoom[i].Zones[j + znNum].Name + " absolute humidity [g/kg]" +
                 "," + building.MultiRoom[i].Zones[j].Name + " relative humidity [%]" +
-                "," + building.MultiRoom[i].Zones[j + znNum].Name + " relative humidity [%]"
+                "," + building.MultiRoom[i].Zones[j + znNum].Name + " relative humidity [%]" +
+                "," + building.MultiRoom[i].Zones[j].Name + " mean radiant temperature [C]"
                 );
             }
           }
@@ -674,7 +678,8 @@ namespace Shizuku2
               "," + (1000 * building.MultiRoom[i].Zones[j].HumidityRatio).ToString("F2") +
               "," + (1000 * building.MultiRoom[i].Zones[j + znNum].HumidityRatio).ToString("F2") +
               "," + rhmdL.ToString("F1") +
-              "," + rhmdU.ToString("F1")
+              "," + rhmdU.ToString("F1") +
+              "," + tenant.Zones[j].GetMeanSurfaceTemperature().ToString("F1")
               );
           }
         }
